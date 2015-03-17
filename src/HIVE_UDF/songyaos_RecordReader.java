@@ -72,14 +72,7 @@ public class songyaos_RecordReader implements RecordReader<LongWritable, Text> {
 	public Text createValue() {
 		return new Text();
 	}
-	
-	/**
-	 * Reads the next record in the split.  All instances of \\t, \\n and \\r\n are replaced by a space.
-	 * @param key key of the record which will map to the byte offset of the record's line
-	 * @param value the record in text format
-	 * @return true if a record existed, false otherwise
-	 * @throws IOException
-	 */
+
 	public synchronized boolean next(LongWritable key, Text value) throws IOException {
 		// Stay within the split
 		Text temp = new Text();
@@ -98,19 +91,8 @@ public class songyaos_RecordReader implements RecordReader<LongWritable, Text> {
 			else{
 				str += temp.toString().split("=")[1] + "\t";
 			}
-//			String str = value.toString().replaceAll("\\\\\t", " ").replaceAll("\\\\(\n|\r|\r\n)", "");
-//			String[] fields = str.split("\t", -1);
-			
-			
 			pos += newSize;
 			
-//			if (newSize < maxLineLength && fields.length == NUMBER_OF_FIELDS)
-//				return true;
-//			
-//			if (fields.length != NUMBER_OF_FIELDS)
-//				LOG.warn("Skipped line at position " + (pos - newSize) + " with incorrect number of fields (expected "+ NUMBER_OF_FIELDS + " but found " + fields.length + ")");
-//			else
-//				LOG.warn("Skipped line of size " + newSize + " at position " + (pos - newSize));
 		}
 		return false;
 	}
